@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Xml.Serialization;
-
 namespace Cw2.Models
 {
     public class Student

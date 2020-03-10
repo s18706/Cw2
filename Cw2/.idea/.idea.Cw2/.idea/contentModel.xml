@@ -19,6 +19,9 @@
           </e>
         </e>
         <e p="Program.cs" t="Include" />
+        <e p="Tools" t="Include">
+          <e p="MyComparer.cs" t="Include" />
+        </e>
       </e>
       <e p="Cw2.sln" t="IncludeFlat" />
       <e p="packages" t="ExcludeRecursive" />

@@ -1,4 +1,5 @@
 ﻿using Cw2.Models;
+using Cw2.Tools;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -22,27 +23,57 @@ namespace Cw2
                 var data = line.Split(",");
                 foreach (var thing in data)
                 {
-                    Console.Write(thing + { });
+                    Console.Write(thing + " ");
                 }
                 Console.WriteLine();
             }
-            //stream.Dispose();
 
-            //XML
-            var list = new List<Student>();
-            var st = new Student
+            ///////////////////////
+            
+            var hash = new HashSet<Student>(new MyComparer());
+
+            var stud1 = new Student
             {
-                FirstName= "Jan",
-                LastName= "Kowalski",
-                Index= "1234"    
+                FirstName = "Jan",
+                LastName = "Kowalski",
+                Index = "1234"
             };
-            list.Add(st);
 
-            FileStream writer = new FileStream(destination, FileMode.Create);
-            XmlSerializer serializer = new XmlSerializer(typeof(List<Student>),
-                                       new XmlRootAttribute("uczelnia"));
-            serializer.Serialize(writer, list);
-            serializer.Serialize(writer, list);
+            var stud2 = new Student
+            {
+                FirstName = "Jan",
+                LastName = "Kowalski",
+                Index = "1234"
+            };
+
+            var stud3 = new Student
+            {
+                FirstName = "Janina",
+                LastName = "Nowak",
+                Index = "1234"
+            };
+            
+            hash.Add(stud1);
+            hash.Add(stud2);
+            hash.Add(stud3);
+            
+            Console.WriteLine(hash.Count);
+            
+            ///////////////////////////
+            //XML
+            // var list = new List<Student>();
+            // var st = new Student
+            // {
+            //     FirstName= "Jan",
+            //     LastName= "Kowalski",
+            //     Index= "1234"    
+            // };
+            // list.Add(st);
+            //
+            // FileStream writer = new FileStream(destination, FileMode.Create);
+            // XmlSerializer serializer = new XmlSerializer(typeof(List<Student>),
+            //                            new XmlRootAttribute("uczelnia"));
+            // serializer.Serialize(writer, list);
 
         }
     }
