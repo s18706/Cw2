@@ -22,6 +22,7 @@
         </e>
         <e p="Program.cs" t="Include" />
         <e p="Tools" t="Include">
+          <e p="Log.cs" t="Include" />
           <e p="MyComparer.cs" t="Include" />
           <e p="StudentException.cs" t="Include" />
         </e>
