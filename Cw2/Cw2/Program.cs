@@ -3,9 +3,10 @@ using Cw2.Tools;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Reflection.Metadata.Ecma335;
-using System.Text;
 using System.Xml.Serialization;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using JsonSerializer = Newtonsoft.Json.JsonSerializer;
 
 namespace Cw2
 {
@@ -16,8 +17,8 @@ namespace Cw2
             var log = new Log();
             try
             {
-                var pathCsv = @"/Users/admin/Desktop/Schools4/APBD/projects/Cw2/Cw2/Cw2/Data/dane.csv";
-                // var pathCsv = args.Length > 0 ? args[0] : "data.csv";
+                // var pathCsv = @"/Users/admin/Desktop/Schools4/APBD/projects/Cw2/Cw2/Cw2/Data/dane.csv";
+                var pathCsv = args.Length > 0 ? args[0] : "data.csv";
                 var destination = args.Length > 1 ? args[1] : "result.xml";
                 var fileFormat = args.Length > 2 ? args[2] : "xml";
                 
@@ -40,9 +41,9 @@ namespace Cw2
                                 email = data[6],
                                 mothersName = data[7],
                                 fathersName = data[8],
-                                studies = new Studies()
+                                studies = new Studies
                                 {
-                                    name = data[2],
+                                    name = data[2].Replace(data[3].ToLower(), ""),
                                     mode = data[3]
                                 }
                             });
@@ -65,9 +66,17 @@ namespace Cw2
                     studenci = hash
                 };
 
-                FileStream writer = new FileStream(destination, FileMode.Create);
-                XmlSerializer serializer = new XmlSerializer(typeof(Uczelnia));
-                serializer.Serialize(writer, uczelnia);
+                if (fileFormat.Equals("xml"))
+                {
+                    FileStream writer = new FileStream(destination, FileMode.Create);
+                    XmlSerializer serializer = new XmlSerializer(typeof(Uczelnia));
+                    serializer.Serialize(writer, uczelnia);
+                }
+                else if (fileFormat.Equals("json"))
+                {
+                    var jsonString = new JsonSerializer();
+                    File.WriteAllText("data.json", jsonString);
+                }
             }
             catch (ArgumentException e)
             {
