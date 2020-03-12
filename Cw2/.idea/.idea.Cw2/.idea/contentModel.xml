@@ -10,6 +10,8 @@
         </e>
         <e p="Models" t="Include">
           <e p="Student.cs" t="Include" />
+          <e p="Studies.cs" t="Include" />
+          <e p="Uczelnia.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
@@ -21,6 +23,7 @@
         <e p="Program.cs" t="Include" />
         <e p="Tools" t="Include">
           <e p="MyComparer.cs" t="Include" />
+          <e p="StudentException.cs" t="Include" />
         </e>
       </e>
       <e p="Cw2.sln" t="IncludeFlat" />

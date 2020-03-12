@@ -11,15 +11,15 @@ namespace Cw2.Tools
         {
             return StringComparer
                 .InvariantCultureIgnoreCase
-                .Equals($"{x.FirstName} {x.LastName} {x.Index}",
-                    $"{y.FirstName} {y.LastName} {y.Index}");
+                .Equals($"{x.fname} {x.lname} {x.indexNumber}",
+                    $"{y.fname} {y.lname} {y.indexNumber}");
         }
 
         public int GetHashCode(Student obj)
         {
             return StringComparer
                 .CurrentCultureIgnoreCase
-                .GetHashCode($"{obj.FirstName} {obj.LastName} {obj.Index}");
+                .GetHashCode($"{obj.fname} {obj.lname} {obj.indexNumber}");
         }
     }
 }
