@@ -16,8 +16,8 @@ namespace Cw2
             var log = new Log();
             try
             {
-                var pathCsv = @"/Users/admin/Desktop/Schools4/APBD/projects/Cw2/Cw2/Cw2/Data/dane.csv";
-                // var pathCsv = args.Length > 0 ? args[0] : "data.csv";
+                // var pathCsv = @"/Users/admin/Desktop/Schools4/APBD/projects/Cw2/Cw2/Cw2/Data/dane.csv";
+                var pathCsv = args.Length > 0 ? args[0] : "data.csv";
                 var destination = args.Length > 1 ? args[1] : "result.xml";
                 var fileFormat = args.Length > 2 ? args[2] : "xml";
                 
@@ -59,12 +59,12 @@ namespace Cw2
                 uczelnia.studenci = students;
                 uczelnia.activeStudies = new List<ActiveStudies>();
                 
-                foreach (KeyValuePair<string, int> pair in activeStudiesDictionary)
+                foreach (KeyValuePair<string, int> kvp in activeStudiesDictionary)
                 {
                     uczelnia.activeStudies.Add(new ActiveStudies
                     {
-                        name = pair.Key,
-                        numberOfStudents = pair.Value
+                        name = kvp.Key,
+                        numberOfStudents = kvp.Value
                     });
                 }
                 
