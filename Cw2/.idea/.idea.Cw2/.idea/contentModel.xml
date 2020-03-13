@@ -9,6 +9,7 @@
           <e p="dane.csv" t="Include" />
         </e>
         <e p="Models" t="Include">
+          <e p="ActiveStudies.cs" t="Include" />
           <e p="Student.cs" t="Include" />
           <e p="Studies.cs" t="Include" />
           <e p="Uczelnia.cs" t="Include" />

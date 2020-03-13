@@ -15,7 +15,6 @@ namespace Cw2.Models
         public string author = "Arkadiusz Pańczyk";
         
         public HashSet<Student> studenci { get; set; }
-        // public HashSet activeStudies { get; set; }
-        
+        public List<ActiveStudies> activeStudies { get; set; }
     }
 }

@@ -23,8 +23,9 @@ namespace Cw2
                 
                 var lines = File.ReadLines(pathCsv);
                 
+                var uczelnia = new Uczelnia();
                 var students = new HashSet<Student>(new MyComparer());
-                
+                var activeStudiesDictionary = new Dictionary<string,int>();
 
                 foreach (var line in lines)
                 {
@@ -33,7 +34,14 @@ namespace Cw2
                         var data = line.Split(",");
                         if (data.Length == 9 && !Array.Exists(data, element => element == ""))
                         {
-                            students.Add(new Student(data));
+                            Student tmp = new Student(data);
+                            if (students.Add(tmp))
+                            { 
+                                if (!activeStudiesDictionary.ContainsKey(tmp.studies.name))
+                                    activeStudiesDictionary.Add(tmp.studies.name, 1);
+                                else
+                                    activeStudiesDictionary[tmp.studies.name] += 1;
+                            }
                         }
                         else
                         {
@@ -48,11 +56,18 @@ namespace Cw2
 
                 Console.WriteLine(students.Count);
 
-                var uczelnia = new Uczelnia
+                uczelnia.studenci = students;
+                uczelnia.activeStudies = new List<ActiveStudies>();
+                
+                foreach (KeyValuePair<string, int> pair in activeStudiesDictionary)
                 {
-                    studenci = students
-                };
-
+                    uczelnia.activeStudies.Add(new ActiveStudies
+                    {
+                        name = pair.Key,
+                        numberOfStudents = pair.Value
+                    });
+                }
+                
                 if (fileFormat.Equals("xml"))
                 {
                     FileStream writer = new FileStream(destination, FileMode.Create);
