@@ -3,10 +3,9 @@ using Cw2.Tools;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text.Json;
 using System.Xml.Serialization;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using JsonSerializer = Newtonsoft.Json.JsonSerializer;
+
 
 namespace Cw2
 {
@@ -17,13 +16,15 @@ namespace Cw2
             var log = new Log();
             try
             {
-                // var pathCsv = @"/Users/admin/Desktop/Schools4/APBD/projects/Cw2/Cw2/Cw2/Data/dane.csv";
-                var pathCsv = args.Length > 0 ? args[0] : "data.csv";
+                var pathCsv = @"/Users/admin/Desktop/Schools4/APBD/projects/Cw2/Cw2/Cw2/Data/dane.csv";
+                // var pathCsv = args.Length > 0 ? args[0] : "data.csv";
                 var destination = args.Length > 1 ? args[1] : "result.xml";
                 var fileFormat = args.Length > 2 ? args[2] : "xml";
                 
                 var lines = File.ReadLines(pathCsv);
-                var hash = new HashSet<Student>(new MyComparer());
+                
+                var students = new HashSet<Student>(new MyComparer());
+                
 
                 foreach (var line in lines)
                 {
@@ -32,21 +33,7 @@ namespace Cw2
                         var data = line.Split(",");
                         if (data.Length == 9 && !Array.Exists(data, element => element == ""))
                         {
-                            hash.Add(new Student
-                            {
-                                indexNumber = data[4],
-                                fname = data[0],
-                                lname = data[1],
-                                birthdate = data[5],
-                                email = data[6],
-                                mothersName = data[7],
-                                fathersName = data[8],
-                                studies = new Studies
-                                {
-                                    name = data[2].Replace(data[3].ToLower(), ""),
-                                    mode = data[3]
-                                }
-                            });
+                            students.Add(new Student(data));
                         }
                         else
                         {
@@ -59,11 +46,11 @@ namespace Cw2
                     }
                 }
 
-                Console.WriteLine(hash.Count);
+                Console.WriteLine(students.Count);
 
                 var uczelnia = new Uczelnia
                 {
-                    studenci = hash
+                    studenci = students
                 };
 
                 if (fileFormat.Equals("xml"))
@@ -74,7 +61,7 @@ namespace Cw2
                 }
                 else if (fileFormat.Equals("json"))
                 {
-                    var jsonString = new JsonSerializer();
+                    var jsonString = JsonSerializer.Serialize(uczelnia);
                     File.WriteAllText("data.json", jsonString);
                 }
             }

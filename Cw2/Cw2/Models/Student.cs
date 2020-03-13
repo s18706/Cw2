@@ -26,5 +26,25 @@ namespace Cw2.Models
         public string mothersName { get; set; }
         public string fathersName { get; set; }
         public Studies studies { get; set; }
+
+        public Student(string[] data)
+        {
+            indexNumber = data[4];
+            fname = data[0];
+            lname = data[1];
+            birthdate = data[5];
+            email = data[6];
+            mothersName = data[7];
+            fathersName = data[8];
+            studies = new Studies
+            {
+                name = data[2].Replace(data[3].ToLower(), ""),
+                mode = data[3]
+            };
+        }
+
+        public Student()
+        {
+        }
     }
 }
